@@ -5,7 +5,8 @@ import RsocketClient from "./RsocketClient";
 function App() {
   const [rsocketClient, setRsocketClient] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [url, setUrl] = useState('ws://localhost:7000');
+  // const [url, setUrl] = useState('ws://localhost:7000');
+  const [url, setUrl] = useState('wss://krb-non-prod-search-service-layer.internal.epo.org/search-service-layer/master/v4/api/notification');
   const [sessionId, setSessionId] = useState('userId');
   const [connectionId, setConnectionId] = useState(null);
   const [conceptIds, setConceptIds] = useState('1,2,3');
@@ -14,6 +15,7 @@ function App() {
 
   const connect = () => {
       const onUpdateEvents = (payload) => {
+          console.log(payload.data.toString('utf8'));
           const data = JSON.parse(payload.data.toString('utf8'));
           console.log(data);
           messages.push(data)
@@ -44,7 +46,11 @@ function App() {
     <div className="App">
         <div>
             <h5>Connection websocket Url:</h5>
+            <p>ws://localhost:7000</p>
+            <p>wss://krb-non-prod-search-service-layer.internal.epo.org/search-service-layer/pr-5/v4/api/notification</p>
+            <p>wss://krb-non-prod-search-service-layer.internal.epo.org/search-service-layer/master/v4/api/notification</p>
                 <input type="text"
+                       style={{width: "900px"}}
                        value={url}
                        onChange={event => setUrl(event.target.value)} />
                 <button onClick={connect}>Connect</button>

@@ -1,4 +1,6 @@
-import { decodeRoutes } from 'rsocket-core';
+import {decodeRoutes, MAX_STREAM_ID} from 'rsocket-core';
+import {Flowable, Single} from 'rsocket-flowable';
+
 
 export class EchoResponder {
     constructor(responseCallback, metadataCallback) {
@@ -17,7 +19,7 @@ export class EchoResponder {
         }
     }
 
-
-
-
+    requestChannel(payload) {
+        return payload;
+    }
 }
